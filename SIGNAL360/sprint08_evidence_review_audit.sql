@@ -83,3 +83,7 @@ COMMENT ON COLUMN public.verification_submissions.evidence_reference IS
   'Optional URL or reference identifier for supporting evidence; do not store secrets or sensitive network details.';
 COMMENT ON COLUMN public.verification_submissions.review_note IS
   'Administrator explanation recorded with the latest review decision.';
+
+-- The audit log is readable by authenticated administrators through RLS only.
+GRANT SELECT ON public.verification_review_events TO authenticated;
+REVOKE INSERT, UPDATE, DELETE ON public.verification_review_events FROM anon, authenticated;
